@@ -36,7 +36,7 @@ function createVirtualGfx() {
 }
 
 function deleteVirtualGfx() {
-	if ! ls /sys/bus/pci/devices/*/*/intel_vgpu 2>&1 > /dev/null; then
+	if ! ls /sys/bus/pci/devices/*/*/intel_vgpu > /dev/null 2>&1 ; then
 		echo "No virtual devices to remove." 
 		return 0
 	fi

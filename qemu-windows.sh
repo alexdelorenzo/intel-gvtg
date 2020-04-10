@@ -23,13 +23,13 @@ echo "Using vGPU @ $device"
 # using ionice and nice to set low priorities
 
 ionice -c idle nice -n 19 \
-  firejail \
-    --allusers --ignore=nodbus \
-    --whitelist=$(pwd) --whitelist="/var/lib/flatpak" \
-  qemu-system-x86_64 --display gtk -enable-kvm \
+  #firejail \
+  #  --allusers --ignore=nodbus \
+  #  --whitelist=$(pwd) \
+  qemu-system-x86_64 --display gtk,gl=on -enable-kvm \
     -machine q35,accel=kvm,kernel_irqchip=on \
     -device intel-iommu -cpu host -m "$RAM_GB"G -smp 2,cores=1,threads=2 \
-    -device vfio-pci,sysfsdev=$device,rombar=0 \
+    -device vfio-pci,sysfsdev=$device,display=on \
     -nic user,model=virtio-net-pci -net user,smb=/home/alex \
     -usb -device usb-tablet \
     -boot c -drive file="$DISK",media=disk,aio=native,cache.direct=on
