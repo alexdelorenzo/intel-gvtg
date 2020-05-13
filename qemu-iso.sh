@@ -15,14 +15,14 @@ printf "Using vGPU @ $device\n"
 
 sudo ionice -c idle nice -n 19 \
   /usr/bin/qemu-system-x86_64 -enable-kvm \
-  -machine q35,accel=kvm,kernel_irqchip=on \
-  -device intel-iommu \
   --display gtk \
   -usb -device usb-tablet \
-  -cdrom "$iso" -boot c
-#  -device vfio-pci,sysfsdev=$device,rombar=0
-#  -nic user,model=virtio-net-pci -net user,smb=/home/alex \
-#  -cpu host -m 1.75G -smp 2,cores=1,threads=2 \
+  -cdrom "$iso" -boot c \
+  -device vfio-pci,sysfsdev=$device,rombar=0 \
+  -nic user,model=virtio-net-pci -net user,smb=/home/alex \
+  -cpu host -m 1.75G -smp 2,cores=1,threads=2 #\
+#  -device intel-iommu
+#  -machine q35,accel=kvm,kernel_irqchip=on \
 
 ctrl_c
  #-boot d -drive file="$iso",media=disk,aio=native,cache.direct=on \
