@@ -19,13 +19,13 @@ function listSupportedTypes() {
 }
 
 function createVirtualGfx() {
-	type="${1:-$DEFAULT_TYPE}"
+	local type="${1:-$DEFAULT_TYPE}"
 	echo "Type: $type"
 
-	device=$(dirname /sys/devices/*/*/mdev_supported_types/)
-	name=$(basename "$device")
-	uuid=$(uuidgen)
-	create="$device/mdev_supported_types/$type/create"
+	local device=$(dirname /sys/devices/*/*/mdev_supported_types/)
+	local name=$(basename "$device")
+	local uuid=$(uuidgen)
+	local create="$device/mdev_supported_types/$type/create"
 
 	if echo "$uuid" > "$create"; then
 		echo "/sys/bus/pci/devices/$name/$uuid"
@@ -48,8 +48,8 @@ function deleteVirtualGfx() {
 }
 
 function main() {
-	cmd="${1:-help}"
-	arg="$2"
+	local cmd="${1:-help}"
+	local arg="$2"
 
 	case "$cmd" in
 		supported)
