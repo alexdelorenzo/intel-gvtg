@@ -7,7 +7,13 @@ export HELP="Use either the 'supported', 'add', or 'del' commands.
 Examples:
   ./$NAME supported
   ./$NAME add or ./$NAME add '$DEFAULT_TYPE'
-  ./$NAME del"
+  ./$NAME del
+  ./$NAME load_modules"
+
+
+function loadModules() {
+	sudo modprobe kvmgt vfio-iommu-type1 vfio-mdev
+}
 
 
 function listSupportedTypes() {
@@ -60,6 +66,9 @@ function main() {
 			;;
 		del*)
 			deleteVirtualGfx "$arg"
+			;;
+		load*)
+			loadModules
 			;;
 		*)
 			echo "$HELP"
