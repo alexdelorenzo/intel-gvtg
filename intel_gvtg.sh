@@ -11,12 +11,12 @@ Examples:
   ./$NAME load_modules"
 
 
-function loadModules() {
+loadModules() {
 	sudo modprobe kvmgt vfio-iommu-type1 vfio-mdev
 }
 
 
-function listSupportedTypes() {
+listSupportedTypes() {
 	for type in $(ls /sys/devices/*/*/mdev_supported_types 2> /dev/null); do 
 		echo "Type: $type"
 		cat /sys/devices/*/*/mdev_supported_types/$type/description
@@ -24,7 +24,7 @@ function listSupportedTypes() {
 	done
 }
 
-function createVirtualGfx() {
+createVirtualGfx() {
 	local type="${1:-$DEFAULT_TYPE}"
 	echo "Type: $type"
 
@@ -41,7 +41,7 @@ function createVirtualGfx() {
 	fi
 }
 
-function deleteVirtualGfx() {
+deleteVirtualGfx() {
 	if ! ls /sys/bus/pci/devices/*/*/intel_vgpu &> /dev/null ; then
 		echo "No virtual devices to remove." 
 		return 0
@@ -53,7 +53,7 @@ function deleteVirtualGfx() {
 	done
 }
 
-function main() {
+main() {
 	local cmd="${1:-help}"
 	local arg="$2"
 
